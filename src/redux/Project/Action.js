@@ -195,7 +195,7 @@ export const inviteToProjectById=({email,projectId})=>async(dispatch)=>{
     }
 }
 
-export const acceptInvitation=({invitationToken,navigate})=>async (dispatch)=>{
+export const acceptInvitation=({token,navigate})=>async (dispatch)=>{
 
     dispatch({
         type:ACCEPT_INVITATION_REQUEST
@@ -203,11 +203,19 @@ export const acceptInvitation=({invitationToken,navigate})=>async (dispatch)=>{
 
     try{
         const {data}=await api.get(`/api/projects/accept`,{
-            params:{token:invitationToken}
+            params:{token}
         })
-        navigate(`/project/${data.projectId}`)
-        console.log("accept invitation",data)
-        dispatch({ type: ACCEPT_INVITATION_SUCCESS,payload:data });
+        console.log("Data received for invitation : ",data)
+        console.log("project id :",data?.data?.projectId)
+        if(data?.data?.projectId){
+            navigate(`/project/${data?.data?.projectId}`)
+            console.log("accept invitation",data)
+            dispatch({ type: ACCEPT_INVITATION_SUCCESS,payload:data });
+        }
+        else{
+            console.log("No project found with this token")
+            dispatch({ type: ACCEPT_INVITATION_FAILURE, payload: {error: "No project found with this token"} });
+        }
 
     }
     catch (e) {

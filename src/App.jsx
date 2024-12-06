@@ -10,6 +10,7 @@ import {getUser} from "@/redux/Auth/Action.js";
 import {useEffect} from "react";
 import {fetchProjects} from "@/redux/Project/Action.js";
 import UpgradeSuccess from "@/pages/UpgradeSuccess.jsx";
+import AcceptInvitation from "@/pages/AcceptInvitation.jsx";
 
 const App = () => {
 
@@ -42,6 +43,7 @@ const App = () => {
                             <Route path={"/project/:projectId/issue/:issueId"} element={<IssueDetails/>}/>
                             <Route path={"/upgrade-plan"} element={<Subscription/>}/>
                             <Route path={"/upgrade-plan/success"} element={<UpgradeSuccess/>}/>
+                            <Route path={"/accept_invitation"} element={<AcceptInvitation/>}/>
                         </Routes>
                     </div>
                 ):(

@@ -6,9 +6,14 @@ import {Input} from "@/components/ui/input.jsx";
 // import {Cross1Icon} from "@radix-ui/react-icons";
 import {Button} from "@/components/ui/button.jsx";
 import {DialogClose} from "@/components/ui/dialog.jsx";
+import {useDispatch} from "react-redux";
+import {inviteToProjectById} from "@/redux/Project/Action.js";
+import {useParams} from "react-router-dom";
 
 const InviteUserForm = () => {
 
+    const dispatch=useDispatch()
+    const {id}=useParams()
     const form=useForm({
         defaultValues:{
             email:""
@@ -16,6 +21,10 @@ const InviteUserForm = () => {
     })
 
     const onSubmit = (data) => {
+        dispatch(inviteToProjectById({
+            email:data.email,
+            projectId:id
+        }))
         console.log(data);
     };
 
